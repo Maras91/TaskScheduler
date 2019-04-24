@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en"  xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org/">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <link rel="stylesheet" type="text/css" href="/styles/styles.css">
+        <title>Task Scheduler</title>
+    </head>
+    <body>
+        <div class="row">
+            <div class="col-md-10 border">
+                    <div class="row seven-cols">
+                        <div class="col">
+                            <h2>Monday</h2>
+                            <table>
+                                <div th:each="monday : ${mondayTasks}">
+                                    <span th:text="${monday.timeToDisplay}">date</span> <br>
+                                    <span th:text="${monday.name}">name</span> <br>
+                                    <span th:text="${monday.description}">description</span> <br>
+                                    <span th:text="${monday.timeForTask}">timeForTask</span> <br>
+                                    <span th:text="${monday.wasDone}">wasDone</span> <br>
+                                </div>
+                            </table>
+                        </div>
+                        <div class="col">
+                            <h2>Tuesday</h2>
+                            <table>
+                                <div th:each="tuesday : ${tuesdayTasks}">
+                                    <span th:text="${tuesday.timeToDisplay}">date</span> <br>
+                                    <span th:text="${tuesday.name}">name</span> <br>
+                                    <span th:text="${tuesday.description}">description</span> <br>
+                                    <span th:text="${tuesday.timeForTask}">timeForTask</span> <br>
+                                    <span th:text="${tuesday.wasDone}">wasDone</span> <br>
+                                </div>
+                            </table>
+                        </div>
+                        <div class="col">
+                            <h2>Wednesday</h2>
+                            <table>
+                                <div th:each="wednesday : ${wednesdayTasks}">
+                                    <span th:text="${wednesday.timeToDisplay}">date</span> <br>
+                                    <span th:text="${wednesday.name}">name</span> <br>
+                                    <span th:text="${wednesday.description}">description</span> <br>
+                                    <span th:text="${wednesday.timeForTask}">timeForTask</span> <br>
+                                    <span th:text="${wednesday.wasDone}">wasDone</span> <br>
+                                </div>
+                            </table>
+                        </div>
+                        <div class="col">
+                            <h2>Thursday</h2>
+                            <table>
+                                <div th:each="thursday : ${thursdayTasks}">
+                                    <span th:text="${thursday.timeToDisplay}">date</span> <br>
+                                    <span th:text="${thursday.name}">name</span> <br>
+                                    <span th:text="${thursday.description}">description</span> <br>
+                                    <span th:text="${thursday.timeForTask}">timeForTask</span> <br>
+                                    <span th:text="${thursday.wasDone}">wasDone</span> <br>
+                                </div>
+                            </table>
+                        </div>
+                        <div class="col">
+                            <h2>Friday</h2>
+                            <table>
+                                <div th:each="friday : ${fridayTasks}">
+                                    <span th:text="${friday.timeToDisplay}">date</span> <br>
+                                    <span th:text="${friday.name}">name</span> <br>
+                                    <span th:text="${friday.description}">description</span> <br>
+                                    <span th:text="${friday.timeForTask}">timeForTask</span> <br>
+                                    <span th:text="${friday.wasDone}">wasDone</span> <br>
+                                </div>
+                            </table>
+                        </div>
+                        <div class="col">
+                            <h2>Saturday</h2>
+                            <table>
+                                <div th:each="saturday : ${saturdayTasks}">
+                                    <span th:text="${saturday.timeToDisplay}">date</span> <br>
+                                    <span th:text="${saturday.name}">name</span> <br>
+                                    <span th:text="${saturday.description}">description</span> <br>
+                                    <span th:text="${saturday.timeForTask}">timeForTask</span> <br>
+                                    <span th:text="${saturday.wasDone}">wasDone</span> <br>
+                                </div>
+                            </table>
+                        </div>
+                        <div class="col">
+                            <h2>Sunday</h2>
+                            <table>
+                                <div th:each="sunday : ${sundayTasks}">
+                                    <span th:text="${sunday.timeToDisplay}">date</span> <br>
+                                    <span th:text="${sunday.name}">name</span> <br>
+                                    <span th:text="${sunday.description}">description</span> <br>
+                                    <span th:text="${sunday.timeForTask}">timeForTask</span> <br>
+                                    <span th:text="${sunday.wasDone}">wasDone</span> <br>
+                                </div>
+                            </table>
+                        </div>
+                    </div>
+            </div>
+            <div class="col-md-2 border">
+                <h2>Menu: </h2>
+            </div>
+        </div>
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    </body>
+</html>
