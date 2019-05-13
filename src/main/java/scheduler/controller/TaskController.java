@@ -1,10 +1,15 @@
 package scheduler.controller;
 
+import org.joda.time.DateTime;
 import org.joda.time.DateTimeConstants;
+import org.joda.time.DateTimeZone;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import scheduler.model.Task;
 import scheduler.model.TaskToDisplay;
 import scheduler.repository.TaskRepository;
@@ -22,7 +27,7 @@ public class TaskController {
     @Autowired
     private WeekTasks weekTasks;
 
-    @GetMapping("/all")
+    @GetMapping("/")
     public String getAllNotes(Model model) {
         List<Task> weeklyTasks = weekTasks.getWeekTasks(taskRepository.findAll());
 
@@ -54,5 +59,19 @@ public class TaskController {
                 .stream().map(TaskToDisplay::new).collect(Collectors.toList());
         model.addAttribute("sundayTasks",dailyTasks);
         return "index";
+    }
+    //todo wyswietla sie zla godzina
+    @PostMapping("/add")
+    public String addTask(String name, String description, Double timeForTask, String date, String startTime, Model model) {
+        DateTimeFormatter dateFormatter = DateTimeFormat.forPattern("yyyy-MM-dd");
+        Long day = dateFormatter.parseDateTime(date).getMillis();
+
+        dateFormatter = DateTimeFormat.forPattern("HH:mm").withZoneUTC();
+        Long time = dateFormatter.parseDateTime(startTime).getMillis();
+        System.out.println("time in ms: "+ time);
+        Task newTask = new Task(name,description,day+time,timeForTask,"N");
+        taskRepository.save(newTask);
+
+        return getAllNotes(model);
     }
 }
