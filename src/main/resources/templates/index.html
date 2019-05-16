@@ -14,7 +14,7 @@
                         <div class="col">
                             <h2>Monday</h2>
                             <table>
-                                <div th:each="monday : ${mondayTasks}">
+                                <div class="bg-warning" th:each="monday : ${mondayTasks}">
                                     <span th:text="${monday.timeToDisplay}">date</span> <br>
                                     <span th:text="${monday.name}">name</span> <br>
                                     <span th:text="${monday.description}">description</span> <br>
@@ -25,7 +25,7 @@
                         <div class="col">
                             <h2>Tuesday</h2>
                             <table>
-                                <div th:each="tuesday : ${tuesdayTasks}">
+                                <div class="bg-warning" th:each="tuesday : ${tuesdayTasks}">
                                     <span th:text="${tuesday.timeToDisplay}">date</span> <br>
                                     <span th:text="${tuesday.name}">name</span> <br>
                                     <span th:text="${tuesday.description}">description</span> <br>
@@ -36,7 +36,7 @@
                         <div class="col">
                             <h2>Wednesday</h2>
                             <table>
-                                <div th:each="wednesday : ${wednesdayTasks}">
+                                <div class="bg-warning" th:each="wednesday : ${wednesdayTasks}">
                                     <span th:text="${wednesday.timeToDisplay}">date</span> <br>
                                     <span th:text="${wednesday.name}">name</span> <br>
                                     <span th:text="${wednesday.description}">description</span> <br>
@@ -47,7 +47,7 @@
                         <div class="col">
                             <h2>Thursday</h2>
                             <table>
-                                <div th:each="thursday : ${thursdayTasks}">
+                                <div class="bg-warning" th:each="thursday : ${thursdayTasks}">
                                     <span th:text="${thursday.timeToDisplay}">date</span> <br>
                                     <span th:text="${thursday.name}">name</span> <br>
                                     <span th:text="${thursday.description}">description</span> <br>
@@ -58,7 +58,7 @@
                         <div class="col">
                             <h2>Friday</h2>
                             <table>
-                                <div th:each="friday : ${fridayTasks}">
+                                <div class="bg-warning" th:each="friday : ${fridayTasks}">
                                     <span th:text="${friday.timeToDisplay}">date</span> <br>
                                     <span th:text="${friday.name}">name</span> <br>
                                     <span th:text="${friday.description}">description</span> <br>
@@ -69,7 +69,7 @@
                         <div class="col">
                             <h2>Saturday</h2>
                             <table>
-                                <div th:each="saturday : ${saturdayTasks}">
+                                <div class="bg-warning" th:each="saturday : ${saturdayTasks}">
                                     <span th:text="${saturday.timeToDisplay}">date</span> <br>
                                     <span th:text="${saturday.name}">name</span> <br>
                                     <span th:text="${saturday.description}">description</span> <br>
@@ -79,14 +79,17 @@
                         </div>
                         <div class="col">
                             <h2>Sunday</h2>
-                            <table>
-                                <div th:each="sunday : ${sundayTasks}">
+                            <div th:each="sunday : ${sundayTasks}">
+                                <a th:href="@{'/taskmodification?taskdate=' + ${sunday.date}}" class="btn m-1 p-1 d-block text-left"
+                                     th:classappend="${(sunday.wasDone=='Y' ? 'btn-success' : '')+
+                                                       (sunday.wasDone=='N' ? 'btn-danger' : '')+
+                                                       (sunday.wasDone=='' ? 'btn-warning' : '')}">
                                     <span th:text="${sunday.timeToDisplay}">date</span> <br>
                                     <span th:text="${sunday.name}">name</span> <br>
                                     <span th:text="${sunday.description}">description</span> <br>
                                     <span th:text="${sunday.timeForTask}">timeForTask</span> <br>
-                                </div>
-                            </table>
+                                </a>
+                            </div>
                         </div>
                     </div>
             </div>
@@ -125,8 +128,6 @@
                                     <label for="taskTime">Time:</label>
                                     <input type="time" class="form-control" id="TaskTime" name="startTime">
                                 </div>
-
-
                             </div>
                             <div class="modal-footer">
                                 <button type="submit" class="btn btn-primary">Add</button>

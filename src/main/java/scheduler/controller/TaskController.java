@@ -1,8 +1,6 @@
 package scheduler.controller;
 
-import org.joda.time.DateTime;
 import org.joda.time.DateTimeConstants;
-import org.joda.time.DateTimeZone;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +26,7 @@ public class TaskController {
     private WeekTasks weekTasks;
 
     @GetMapping("/")
-    public String getAllNotes(Model model) {
+    public String getMainView(Model model) {
         List<Task> weeklyTasks = weekTasks.getWeekTasks(taskRepository.findAll());
 
         List<TaskToDisplay> dailyTasks = weekTasks.getDailyTasks(DateTimeConstants.MONDAY,weeklyTasks)
@@ -60,7 +58,6 @@ public class TaskController {
         model.addAttribute("sundayTasks",dailyTasks);
         return "index";
     }
-    //todo wyswietla sie zla godzina
     @PostMapping("/add")
     public String addTask(String name, String description, Double timeForTask, String date, String startTime, Model model) {
         DateTimeFormatter dateFormatter = DateTimeFormat.forPattern("yyyy-MM-dd");
@@ -69,9 +66,26 @@ public class TaskController {
         dateFormatter = DateTimeFormat.forPattern("HH:mm").withZoneUTC();
         Long time = dateFormatter.parseDateTime(startTime).getMillis();
         System.out.println("time in ms: "+ time);
-        Task newTask = new Task(name,description,day+time,timeForTask,"N");
+        Task newTask = new Task(name,description,day+time,timeForTask,"");
         taskRepository.save(newTask);
 
-        return getAllNotes(model);
+        return getMainView(model);
+    }
+    @PostMapping("/update")
+    public String updateTask(Long date, String wasDone, Model model) {
+        Task taskToUpdate = taskRepository.getOne(date);
+        taskToUpdate.setWasDone(wasDone);
+        taskRepository.save(taskToUpdate);
+        return getMainView(model);
+    }
+    @PostMapping("/delete")
+    public String deleteTask(Long date, Model model) {
+        taskRepository.deleteById(date);
+        return getMainView(model);
+    }
+
+    @GetMapping("/taskmodification")
+    public String detTaskModificationWindow() {
+        return "taskmodification";
     }
 }

@@ -46,4 +46,8 @@ public class Task {
     public String getWasDone() {
         return wasDone;
     }
+
+    public void setWasDone(String wasDone) {
+        this.wasDone = wasDone;
+    }
 }
