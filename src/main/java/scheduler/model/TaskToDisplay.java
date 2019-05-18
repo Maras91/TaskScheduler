@@ -9,7 +9,7 @@ public class TaskToDisplay extends Task {
 
     public TaskToDisplay(Task task) {
         super(task.getName(), task.getDescription(), task.getDate(),task.getTimeForTask(), task.getWasDone());
-        DateTimeFormatter format = DateTimeFormat.forPattern("dd HH:mm");
+        DateTimeFormatter format = DateTimeFormat.forPattern("HH:mm");
         timeToDisplay = new DateTime(this.getDate()).toString(format);
     }
 

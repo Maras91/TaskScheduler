@@ -84,8 +84,12 @@ public class TaskController {
         return getMainView(model);
     }
 
-    @GetMapping("/taskmodification")
+    @GetMapping("/taskmodificationview")
     public String detTaskModificationWindow() {
-        return "taskmodification";
+        return "taskmodificationwindow";
+    }
+    @PostMapping("/addView")
+    public String getAddView(){
+        return "addtaskwindow";
     }
 }
