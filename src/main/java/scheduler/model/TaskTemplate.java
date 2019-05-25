@@ -1,7 +1,11 @@
 package scheduler.model;
 
+import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
+@Entity
+@Table(name ="Task_Template")
 public class TaskTemplate {
     @Id
     private String name;

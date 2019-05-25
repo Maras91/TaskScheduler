@@ -1,8 +1,6 @@
 package scheduler.controller;
 
 import org.joda.time.DateTimeConstants;
-import org.joda.time.format.DateTimeFormat;
-import org.joda.time.format.DateTimeFormatter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,22 +9,28 @@ import org.springframework.web.bind.annotation.PostMapping;
 import scheduler.model.Task;
 import scheduler.model.TaskToDisplay;
 import scheduler.repository.TaskRepository;
+import scheduler.repository.TaskTemplateRepository;
 import scheduler.service.WeekTasks;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Controller
-public class TaskController {
+public class ViewController {
 
     @Autowired
     private TaskRepository taskRepository;
+
+    @Autowired
+    private TaskTemplateRepository taskTemplateRepository;
 
     @Autowired
     private WeekTasks weekTasks;
 
     @GetMapping("/")
     public String getMainView(Model model) {
+        model.addAttribute("taskTemplates",taskTemplateRepository.findAll());
+
         List<Task> weeklyTasks = weekTasks.getWeekTasks(taskRepository.findAll());
 
         List<TaskToDisplay> dailyTasks = weekTasks.getDailyTasks(DateTimeConstants.MONDAY,weeklyTasks)
@@ -58,38 +62,19 @@ public class TaskController {
         model.addAttribute("sundayTasks",dailyTasks);
         return "index";
     }
-    @PostMapping("/add")
-    public String addTask(String name, String description, Double timeForTask, String date, String startTime, Model model) {
-        DateTimeFormatter dateFormatter = DateTimeFormat.forPattern("yyyy-MM-dd");
-        Long day = dateFormatter.parseDateTime(date).getMillis();
-
-        dateFormatter = DateTimeFormat.forPattern("HH:mm").withZoneUTC();
-        Long time = dateFormatter.parseDateTime(startTime).getMillis();
-        System.out.println("time in ms: "+ time);
-        Task newTask = new Task(name,description,day+time,timeForTask,"");
-        taskRepository.save(newTask);
-
-        return getMainView(model);
-    }
-    @PostMapping("/update")
-    public String updateTask(Long date, String wasDone, Model model) {
-        Task taskToUpdate = taskRepository.getOne(date);
-        taskToUpdate.setWasDone(wasDone);
-        taskRepository.save(taskToUpdate);
-        return getMainView(model);
-    }
-    @PostMapping("/delete")
-    public String deleteTask(Long date, Model model) {
-        taskRepository.deleteById(date);
-        return getMainView(model);
-    }
 
     @GetMapping("/taskmodificationview")
     public String detTaskModificationWindow() {
         return "taskmodificationwindow";
     }
+
     @PostMapping("/addView")
     public String getAddView(){
         return "addtaskwindow";
+    }
+
+    @PostMapping("/addTemplateView")
+    public String getAddTemlateView () {
+        return "addtasktemplatewindow";
     }
 }

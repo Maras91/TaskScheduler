@@ -1,127 +1,164 @@
 <!doctype html>
-<html lang="en"  xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org/">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-        <link rel="stylesheet" type="text/css" href="/styles/styles.css">
-        <title>Task Scheduler</title>
-    </head>
-    <body>
-        <div class="row">
-            <div class="col-md-10 border">
-                <div class="row seven-cols">
-                    <div class="col">
-                        <h2>Monday</h2>
-                        <div th:each="monday : ${mondayTasks}">
-                            <a th:href="@{'/taskmodificationview?taskdate=' + ${monday.date}}" class="btn m-1 p-1 d-block text-left"
-                               th:classappend="${(monday.wasDone=='Y' ? 'btn-success' : '')+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>Task Scheduler</title>
+</head>
+<body>
+<div class="row">
+    <div class="col-md-10 border">
+        <div class="row seven-cols">
+            <div class="col">
+                <h2>Monday</h2>
+                <div th:each="monday : ${mondayTasks}">
+                    <a th:href="@{'/taskmodificationview?taskdate=' + ${monday.date}}"
+                       class="btn m-1 p-1 d-block text-left"
+                       th:classappend="${(monday.wasDone=='Y' ? 'btn-success' : '')+
                                                    (monday.wasDone=='N' ? 'btn-danger' : '')+
                                                    (monday.wasDone=='' ? 'btn-warning' : '')}">
-                                <span th:text="${monday.timeToDisplay}">date</span> <br>
-                                <span th:text="${monday.name}">name</span> <br>
-                                <span th:text="${monday.description}">description</span> <br>
-                                <span th:text="${monday.timeForTask}">timeForTask</span> <br>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <h2>Tuesday</h2>
-                        <div th:each="tuesday : ${tuesdayTasks}">
-                            <a th:href="@{'/taskmodificationview?taskdate=' + ${tuesday.date}}" class="btn m-1 p-1 d-block text-left"
-                               th:classappend="${(tuesday.wasDone=='Y' ? 'btn-success' : '')+
-                                                   (tuesday.wasDone=='N' ? 'btn-danger' : '')+
-                                                   (tuesday.wasDone=='' ? 'btn-warning' : '')}">
-                                <span th:text="${tuesday.timeToDisplay}">date</span> <br>
-                                <span th:text="${tuesday.name}">name</span> <br>
-                                <span th:text="${tuesday.description}">description</span> <br>
-                                <span th:text="${tuesday.timeForTask}">timeForTask</span> <br>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <h2>Wednesday</h2>
-                        <div th:each="wednesday : ${wednesdayTasks}">
-                            <a th:href="@{'/taskmodificationview?taskdate=' + ${wednesday.date}}" class="btn m-1 p-1 d-block text-left"
-                               th:classappend="${(wednesday.wasDone=='Y' ? 'btn-success' : '')+
-                                                   (wednesday.wasDone=='N' ? 'btn-danger' : '')+
-                                                   (wednesday.wasDone=='' ? 'btn-warning' : '')}">
-                                <span th:text="${wednesday.timeToDisplay}">date</span> <br>
-                                <span th:text="${wednesday.name}">name</span> <br>
-                                <span th:text="${wednesday.description}">description</span> <br>
-                                <span th:text="${wednesday.timeForTask}">timeForTask</span> <br>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <h2>Thursday</h2>
-                        <div th:each="thursday : ${thursdayTasks}">
-                            <a th:href="@{'/taskmodificationview?taskdate=' + ${thursday.date}}" class="btn m-1 p-1 d-block text-left"
-                               th:classappend="${(thursday.wasDone=='Y' ? 'btn-success' : '')+
-                                                   (thursday.wasDone=='N' ? 'btn-danger' : '')+
-                                                   (thursday.wasDone=='' ? 'btn-warning' : '')}">
-                                <span th:text="${thursday.timeToDisplay}">date</span> <br>
-                                <span th:text="${thursday.name}">name</span> <br>
-                                <span th:text="${thursday.description}">description</span> <br>
-                                <span th:text="${thursday.timeForTask}">timeForTask</span> <br>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <h2>Friday</h2>
-                        <div th:each="friday : ${fridayTasks}">
-                            <a th:href="@{'/taskmodificationview?taskdate=' + ${friday.date}}" class="btn m-1 p-1 d-block text-left"
-                               th:classappend="${(friday.wasDone=='Y' ? 'btn-success' : '')+
-                                                   (friday.wasDone=='N' ? 'btn-danger' : '')+
-                                                   (friday.wasDone=='' ? 'btn-warning' : '')}">
-                                <span th:text="${friday.timeToDisplay}">date</span> <br>
-                                <span th:text="${friday.name}">name</span> <br>
-                                <span th:text="${friday.description}">description</span> <br>
-                                <span th:text="${friday.timeForTask}">timeForTask</span> <br>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <h2>Saturday</h2>
-                        <div th:each="saturday : ${saturdayTasks}">
-                            <a th:href="@{'/taskmodificationview?taskdate=' + ${saturday.date}}" class="btn m-1 p-1 d-block text-left"
-                               th:classappend="${(saturday.wasDone=='Y' ? 'btn-success' : '')+
-                                                   (saturday.wasDone=='N' ? 'btn-danger' : '')+
-                                                   (saturday.wasDone=='' ? 'btn-warning' : '')}">
-                                <span th:text="${saturday.timeToDisplay}">date</span> <br>
-                                <span th:text="${saturday.name}">name</span> <br>
-                                <span th:text="${saturday.description}">description</span> <br>
-                                <span th:text="${saturday.timeForTask}">timeForTask</span> <br>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <h2>Sunday</h2>
-                        <div th:each="sunday : ${sundayTasks}">
-                            <a th:href="@{'/taskmodificationview?taskdate=' + ${sunday.date}}" class="btn m-1 p-1 d-block text-left"
-                                 th:classappend="${(sunday.wasDone=='Y' ? 'btn-success' : '')+
-                                                   (sunday.wasDone=='N' ? 'btn-danger' : '')+
-                                                   (sunday.wasDone=='' ? 'btn-warning' : '')}">
-                                <span th:text="${sunday.timeToDisplay}">date</span> <br>
-                                <span th:text="${sunday.name}">name</span> <br>
-                                <span th:text="${sunday.description}">description</span> <br>
-                                <span th:text="${sunday.timeForTask}">timeForTask</span> <br>
-                            </a>
-                        </div>
-                    </div>
+                        <span th:text="${monday.timeToDisplay}">date</span> <br>
+                        <span th:text="${monday.name}">name</span> <br>
+                        <span th:text="${monday.description}">description</span> <br>
+                        <span th:text="${monday.timeForTask}">timeForTask</span> <br>
+                    </a>
                 </div>
             </div>
-            <div class="col-md-2 border">
-                <h2>Menu: </h2>
-                <form method="post" action="/addView">
-                    <button type="submit" class="btn btn-primary btn-lg" >
-                        Add new task
-                    </button>
-                </form>
+            <div class="col">
+                <h2>Tuesday</h2>
+                <div th:each="tuesday : ${tuesdayTasks}">
+                    <a th:href="@{'/taskmodificationview?taskdate=' + ${tuesday.date}}"
+                       class="btn m-1 p-1 d-block text-left"
+                       th:classappend="${(tuesday.wasDone=='Y' ? 'btn-success' : '')+
+                                                   (tuesday.wasDone=='N' ? 'btn-danger' : '')+
+                                                   (tuesday.wasDone=='' ? 'btn-warning' : '')}">
+                        <span th:text="${tuesday.timeToDisplay}">date</span> <br>
+                        <span th:text="${tuesday.name}">name</span> <br>
+                        <span th:text="${tuesday.description}">description</span> <br>
+                        <span th:text="${tuesday.timeForTask}">timeForTask</span> <br>
+                    </a>
+                </div>
+            </div>
+            <div class="col">
+                <h2>Wednesday</h2>
+                <div th:each="wednesday : ${wednesdayTasks}">
+                    <a th:href="@{'/taskmodificationview?taskdate=' + ${wednesday.date}}"
+                       class="btn m-1 p-1 d-block text-left"
+                       th:classappend="${(wednesday.wasDone=='Y' ? 'btn-success' : '')+
+                                                   (wednesday.wasDone=='N' ? 'btn-danger' : '')+
+                                                   (wednesday.wasDone=='' ? 'btn-warning' : '')}">
+                        <span th:text="${wednesday.timeToDisplay}">date</span> <br>
+                        <span th:text="${wednesday.name}">name</span> <br>
+                        <span th:text="${wednesday.description}">description</span> <br>
+                        <span th:text="${wednesday.timeForTask}">timeForTask</span> <br>
+                    </a>
+                </div>
+            </div>
+            <div class="col">
+                <h2>Thursday</h2>
+                <div th:each="thursday : ${thursdayTasks}">
+                    <a th:href="@{'/taskmodificationview?taskdate=' + ${thursday.date}}"
+                       class="btn m-1 p-1 d-block text-left"
+                       th:classappend="${(thursday.wasDone=='Y' ? 'btn-success' : '')+
+                                                   (thursday.wasDone=='N' ? 'btn-danger' : '')+
+                                                   (thursday.wasDone=='' ? 'btn-warning' : '')}">
+                        <span th:text="${thursday.timeToDisplay}">date</span> <br>
+                        <span th:text="${thursday.name}">name</span> <br>
+                        <span th:text="${thursday.description}">description</span> <br>
+                        <span th:text="${thursday.timeForTask}">timeForTask</span> <br>
+                    </a>
+                </div>
+            </div>
+            <div class="col">
+                <h2>Friday</h2>
+                <div th:each="friday : ${fridayTasks}">
+                    <a th:href="@{'/taskmodificationview?taskdate=' + ${friday.date}}"
+                       class="btn m-1 p-1 d-block text-left"
+                       th:classappend="${(friday.wasDone=='Y' ? 'btn-success' : '')+
+                                                   (friday.wasDone=='N' ? 'btn-danger' : '')+
+                                                   (friday.wasDone=='' ? 'btn-warning' : '')}">
+                        <span th:text="${friday.timeToDisplay}">date</span> <br>
+                        <span th:text="${friday.name}">name</span> <br>
+                        <span th:text="${friday.description}">description</span> <br>
+                        <span th:text="${friday.timeForTask}">timeForTask</span> <br>
+                    </a>
+                </div>
+            </div>
+            <div class="col">
+                <h2>Saturday</h2>
+                <div th:each="saturday : ${saturdayTasks}">
+                    <a th:href="@{'/taskmodificationview?taskdate=' + ${saturday.date}}"
+                       class="btn m-1 p-1 d-block text-left"
+                       th:classappend="${(saturday.wasDone=='Y' ? 'btn-success' : '')+
+                                                   (saturday.wasDone=='N' ? 'btn-danger' : '')+
+                                                   (saturday.wasDone=='' ? 'btn-warning' : '')}">
+                        <span th:text="${saturday.timeToDisplay}">date</span> <br>
+                        <span th:text="${saturday.name}">name</span> <br>
+                        <span th:text="${saturday.description}">description</span> <br>
+                        <span th:text="${saturday.timeForTask}">timeForTask</span> <br>
+                    </a>
+                </div>
+            </div>
+            <div class="col">
+                <h2>Sunday</h2>
+                <div th:each="sunday : ${sundayTasks}">
+                    <a th:href="@{'/taskmodificationview?taskdate=' + ${sunday.date}}"
+                       class="btn m-1 p-1 d-block text-left"
+                       th:classappend="${(sunday.wasDone=='Y' ? 'btn-success' : '')+
+                                                   (sunday.wasDone=='N' ? 'btn-danger' : '')+
+                                                   (sunday.wasDone=='' ? 'btn-warning' : '')}">
+                        <span th:text="${sunday.timeToDisplay}">date</span> <br>
+                        <span th:text="${sunday.name}">name</span> <br>
+                        <span th:text="${sunday.description}">description</span> <br>
+                        <span th:text="${sunday.timeForTask}">timeForTask</span> <br>
+                    </a>
+                </div>
             </div>
         </div>
-        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-    </body>
+    </div>
+    <div class="col-md-2 border">
+        <h2>Menu: </h2>
+        <h4 class="border-bottom mb-3 p-1">Task:</h4>
+        <div class="border border-secondary m-1 p-1">
+            <p>select template:
+                <br>
+                <select>
+                <option th:each="taskTemp : ${taskTemplates}" th:value="${taskTemp.name}" th:text="${taskTemp.name}"></option>
+                </select>
+            </p>
+            <form method="post" action="/addView">
+                <button type="submit" class="btn btn-primary btn-lg">
+                    Add task
+                </button>
+            </form>
+        </div>
+        <h4 class="border-bottom mb-3 p-1">Template:</h4>
+        <form method="post" action="/addTemplateView">
+            <button type="submit" class="btn  btn-primary btn-lg m-1">Add template</button>
+        </form>
+        <div class="border border-secondary m-1 p-1">
+            <form action="/modifyTemplate" method="post">
+                <p>modify template:
+                    <select name="templateName">
+                        <option th:each="taskTemp : ${taskTemplates}" th:value="${taskTemp.name}" th:text="${taskTemp.name}"></option>
+                    </select>
+                </p>
+                <button type="submit" name="action" value="update">update</button>
+                <button type="submit" name="action" value="delete">delete</button>
+            </form>
+        </div>
+    </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+</body>
 </html>
