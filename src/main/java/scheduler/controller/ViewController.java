@@ -7,6 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import scheduler.model.Task;
+import scheduler.model.TaskTemplate;
 import scheduler.model.TaskToDisplay;
 import scheduler.repository.TaskRepository;
 import scheduler.repository.TaskTemplateRepository;
@@ -69,7 +70,14 @@ public class ViewController {
     }
 
     @PostMapping("/addView")
-    public String getAddView(){
+    public String getAddView(String taskTemplateName, Model model){
+        TaskTemplate taskTemplate;
+        if(taskTemplateName.equals("none")){
+            taskTemplate = new TaskTemplate("","", (double) 0);
+        } else {
+            taskTemplate = taskTemplateRepository.findById(taskTemplateName).get();
+        }
+        model.addAttribute("taskTemplate",taskTemplate);
         return "addtaskwindow";
     }
 

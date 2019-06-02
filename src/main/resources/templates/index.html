@@ -5,10 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="../css/style.css">
     <title>Task Scheduler</title>
 </head>
 <body>
 <div class="row">
+    <div class="col-md-10 border">
+        <a href="#">
+            <div class="arrow-left float-left"></div>
+        </a>
+        <a href="#">
+            <div class="arrow-right float-right"></div>
+        </a>
+    </div>
     <div class="col-md-10 border">
         <div class="row seven-cols">
             <div class="col">
@@ -122,17 +131,18 @@
         <h2>Menu: </h2>
         <h4 class="border-bottom mb-3 p-1">Task:</h4>
         <div class="border border-secondary m-1 p-1">
+        <form method="post" action="/addView">
             <p>select template:
                 <br>
-                <select>
-                <option th:each="taskTemp : ${taskTemplates}" th:value="${taskTemp.name}" th:text="${taskTemp.name}"></option>
+                <select name="taskTemplateName">
+                    <option value="none" >none</option>
+                    <option th:each="taskTemp : ${taskTemplates}" th:value="${taskTemp.name}" th:text="${taskTemp.name}"></option>
                 </select>
             </p>
-            <form method="post" action="/addView">
-                <button type="submit" class="btn btn-primary btn-lg">
-                    Add task
-                </button>
-            </form>
+            <button type="submit" class="btn btn-primary btn-lg">
+                Add task
+            </button>
+        </form>
         </div>
         <h4 class="border-bottom mb-3 p-1">Template:</h4>
         <form method="post" action="/addTemplateView">

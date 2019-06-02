@@ -1,0 +1,10 @@
+.arrow-left {
+    background-image: url("../images/arrow-left.png");
+    height: 64px;
+    width: 64px;
+}
+.arrow-right {
+    background-image: url("../images/arrow-right.png");
+     height: 64px;
+     width: 64px;
+}

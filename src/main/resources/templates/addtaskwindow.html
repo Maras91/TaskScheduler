@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org/">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -13,15 +13,15 @@
         <div class="col-md-6 border">
             <div class="form-group">
                 <label for="taskName">Task name:</label>
-                <input class="form-control" id="taskName" name="name">
+                <input class="form-control" id="taskName" name="name" th:value="${taskTemplate.name}">
             </div>
             <div class="form-group">
                 <label for="taskDescription">Task description:</label>
-                <textarea class="form-control" id="taskDescription" rows="3" name="description"></textarea>
+                <textarea class="form-control" id="taskDescription" rows="3" name="description" th:field="${taskTemplate.description}"></textarea>
             </div>
             <div class="form-group">
                 <label for="timeForTask">Time for task:</label>
-                <input type="number" step="0.01" class="form-control" id="timeForTask" name="timeForTask">
+                <input type="number" step="0.01" class="form-control" id="timeForTask" name="timeForTask" th:value="${taskTemplate.timeForTask}">
             </div>
             <div class="form-group">
                 <label for="taskDate">Date:</label>
