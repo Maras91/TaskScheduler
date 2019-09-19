@@ -5,7 +5,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name ="Task_Template")
+@Table(name ="task_template")
 public class TaskTemplate {
     @Id
     private String name;

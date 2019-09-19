@@ -28,40 +28,66 @@ public class ViewController {
     @Autowired
     private WeekTasks weekTasks;
 
+    private int weekNumber;
+
+    public ViewController() {
+        this.weekNumber = 0;
+    }
+
     @GetMapping("/")
     public String getMainView(Model model) {
+
+
         model.addAttribute("taskTemplates",taskTemplateRepository.findAll());
 
-        List<Task> weeklyTasks = weekTasks.getWeekTasks(taskRepository.findAll());
+        List<Task> weeklyTasks = weekTasks.getWeekTasks(taskRepository.findAll(),weekNumber);
 
-        List<TaskToDisplay> dailyTasks = weekTasks.getDailyTasks(DateTimeConstants.MONDAY,weeklyTasks)
+        List<TaskToDisplay> dailyTasks = weekTasks.getDailyTasks(DateTimeConstants.MONDAY,weeklyTasks,weekNumber)
                 .stream().map(TaskToDisplay::new).collect(Collectors.toList());
         model.addAttribute("mondayTasks",dailyTasks);
 
-        dailyTasks = weekTasks.getDailyTasks(DateTimeConstants.TUESDAY,weeklyTasks)
+        dailyTasks = weekTasks.getDailyTasks(DateTimeConstants.TUESDAY,weeklyTasks,weekNumber)
                 .stream().map(TaskToDisplay::new).collect(Collectors.toList());
         model.addAttribute("tuesdayTasks",dailyTasks);
 
-        dailyTasks = weekTasks.getDailyTasks(DateTimeConstants.WEDNESDAY,weeklyTasks)
+        dailyTasks = weekTasks.getDailyTasks(DateTimeConstants.WEDNESDAY,weeklyTasks,weekNumber)
                 .stream().map(TaskToDisplay::new).collect(Collectors.toList());
         model.addAttribute("wednesdayTasks",dailyTasks);
 
-        dailyTasks = weekTasks.getDailyTasks(DateTimeConstants.THURSDAY,weeklyTasks)
+        dailyTasks = weekTasks.getDailyTasks(DateTimeConstants.THURSDAY,weeklyTasks,weekNumber)
                 .stream().map(TaskToDisplay::new).collect(Collectors.toList());
         model.addAttribute("thursdayTasks",dailyTasks);
 
-        dailyTasks = weekTasks.getDailyTasks(DateTimeConstants.FRIDAY,weeklyTasks)
+        dailyTasks = weekTasks.getDailyTasks(DateTimeConstants.FRIDAY,weeklyTasks,weekNumber)
                 .stream().map(TaskToDisplay::new).collect(Collectors.toList());
         model.addAttribute("fridayTasks",dailyTasks);
 
-        dailyTasks = weekTasks.getDailyTasks(DateTimeConstants.SATURDAY,weeklyTasks)
+        dailyTasks = weekTasks.getDailyTasks(DateTimeConstants.SATURDAY,weeklyTasks,weekNumber)
                 .stream().map(TaskToDisplay::new).collect(Collectors.toList());
         model.addAttribute("saturdayTasks",dailyTasks);
 
-        dailyTasks = weekTasks.getDailyTasks(DateTimeConstants.SUNDAY,weeklyTasks)
+        dailyTasks = weekTasks.getDailyTasks(DateTimeConstants.SUNDAY,weeklyTasks,weekNumber)
                 .stream().map(TaskToDisplay::new).collect(Collectors.toList());
         model.addAttribute("sundayTasks",dailyTasks);
         return "index";
+    }
+
+    @PostMapping("/weekBefore")
+    public String setWeekBefore(Model model){
+        weekNumber--;
+        return getMainView(model);
+    }
+
+    @PostMapping("/weekAfter")
+    public String setWeekAfter(Model model){
+        weekNumber++;
+        return getMainView(model);
+    }
+
+    @PostMapping("/thisWeek")
+    public String setThisWeek(Model model){
+        weekNumber=0;
+        return getMainView(model);
     }
 
     @GetMapping("/taskmodificationview")
