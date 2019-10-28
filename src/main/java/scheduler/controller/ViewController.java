@@ -2,6 +2,7 @@ package scheduler.controller;
 
 import org.joda.time.DateTimeConstants;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -37,10 +38,8 @@ public class ViewController {
     @GetMapping("/")
     public String getMainView(Model model) {
 
-
         model.addAttribute("taskTemplates",taskTemplateRepository.findAll());
-
-        List<Task> weeklyTasks = weekTasks.getWeekTasks(taskRepository.findAll(),weekNumber);
+        List<Task> weeklyTasks = weekTasks.getWeekTasks(taskRepository.findAll(Sort.by("date")),weekNumber);
 
         List<TaskToDisplay> dailyTasks = weekTasks.getDailyTasks(DateTimeConstants.MONDAY,weeklyTasks,weekNumber)
                 .stream().map(TaskToDisplay::new).collect(Collectors.toList());
