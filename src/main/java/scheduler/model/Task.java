@@ -26,6 +26,9 @@ public class Task {
         this.timeForTask = timeForTask;
         this.wasDone = wasDone;
     }
+    public Task duplicateTask (Long date) {
+        return new Task (this.name, this.description, date, this.timeForTask, this.wasDone);
+    }
 
     public String getName() {
         return name;
