@@ -58,7 +58,7 @@ public class TaskModificationController {
         }
     }
 
-    @PostMapping("/update")
+    @PostMapping("/updateTask")
     public String updateTask(Long date, String wasDone, Model model) {
         Task taskToUpdate = taskRepository.getOne(date);
         taskToUpdate.setWasDone(wasDone);

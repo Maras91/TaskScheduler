@@ -110,4 +110,9 @@ public class ViewController {
     public String getAddTemlateView () {
         return "addtasktemplatewindow";
     }
+
+
+    public String getTemplateModificationView(Model model) {
+        return "templatemodificationwindow";
+    }
 }

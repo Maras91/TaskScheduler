@@ -29,9 +29,17 @@ public class TaskTemplateController {
             return viewController.getMainView(model);
         }
         else {
-            //todo model add templateName, add update mechanism
-            return viewController.getMainView(model);
+            TaskTemplate taskTemplateToUpdate = taskTemplateRepository.getOne(templateName);
+            model.addAttribute("taskTemplate",taskTemplateToUpdate);
+            return viewController.getTemplateModificationView(model);
         }
 
+    }
+
+    @PostMapping("/updateTemplate")
+    public String updateTaskTemplate (String name,String description, Double timeForTask, String oldName, Model model) {
+        taskTemplateRepository.deleteById(oldName);
+        taskTemplateRepository.save(new TaskTemplate(name,description,timeForTask));
+        return viewController.getMainView(model);
     }
 }

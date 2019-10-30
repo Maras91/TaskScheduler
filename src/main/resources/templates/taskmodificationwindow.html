@@ -8,7 +8,7 @@
 </head>
 <body>
     <div class="m-1">
-        <form action="/update" method="post">
+        <form action="/updateTask" method="post">
             <input type="hidden" id="taskDate" name="date" th:value="${param.taskdate}">
             <h2>Change task status:</h2>
             <button type="submit" class="btn btn-primary" name="wasDone" value="Y">Done</button>
