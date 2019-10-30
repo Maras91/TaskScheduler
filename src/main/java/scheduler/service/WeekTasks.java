@@ -7,6 +7,7 @@ import scheduler.model.Task;
 
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 @Service
 public class WeekTasks {
@@ -43,5 +44,21 @@ public class WeekTasks {
                 .withSecondOfMinute(59)
                 .getMillis();
         return tasks.stream().filter(task -> task.getDate()>=dayStart && task.getDate() <= dayEnd).collect(Collectors.toList());
+    }
+
+    public List<Task> createTaskToAllWeek (Task newTask) {
+        long date = newTask.getDate();
+        LocalDate localDate = new LocalDate(date);
+
+        long weekStart = localDate.withDayOfWeek((DateTimeConstants.MONDAY)).toDateTimeAtStartOfDay().getMillis();
+        long weekEnd = localDate.withDayOfWeek((DateTimeConstants.SUNDAY)).toDateTimeAtStartOfDay()
+                .withHourOfDay(23)
+                .withMinuteOfHour(59)
+                .withSecondOfMinute(59)
+                .getMillis();
+        return IntStream.range(-6,6)
+                .mapToObj(multiplier -> newTask.duplicateTask(date+DateTimeConstants.MILLIS_PER_DAY*multiplier))
+                .filter(task -> task.getDate()<weekEnd && task.getDate()>weekStart)
+                .collect(Collectors.toList());
     }
 }

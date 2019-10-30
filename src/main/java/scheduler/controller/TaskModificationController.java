@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import scheduler.model.Task;
 import scheduler.repository.TaskRepository;
+import scheduler.service.WeekTasks;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -23,9 +24,14 @@ public class TaskModificationController {
     @Autowired
     private ViewController viewController;
 
+    @Autowired
+    private WeekTasks weekTasks;
+
     @PostMapping("/add")
     public String addTask(String name, String description, Double timeForTask, String date, String startTime , boolean addForAllDays, Model model) {
-
+        if (date.isEmpty()){
+            date = LocalDate.now().toString();
+        }
         DateTimeFormatter dateFormatter = DateTimeFormat.forPattern("yyyy-MM-dd");
         Long day = dateFormatter.parseDateTime(date).getMillis();
         dateFormatter = DateTimeFormat.forPattern("HH:mm").withZoneUTC();
@@ -39,20 +45,7 @@ public class TaskModificationController {
 
     private List<Task> addTasksToList(Task newTask, boolean addForAllDays) {
         if (addForAllDays) {
-            long date = newTask.getDate();
-            LocalDate localDate = new LocalDate(date);
-
-            long weekStart = localDate.withDayOfWeek((DateTimeConstants.MONDAY)).toDateTimeAtStartOfDay().getMillis();
-            long weekEnd = localDate.withDayOfWeek((DateTimeConstants.SUNDAY)).toDateTimeAtStartOfDay()
-                    .withHourOfDay(23)
-                    .withMinuteOfHour(59)
-                    .withSecondOfMinute(59)
-                    .getMillis();
-            List<Task> allTasks = IntStream.range(-6,6)
-                    .mapToObj(multiplier -> newTask.duplicateTask(date+DateTimeConstants.MILLIS_PER_DAY*multiplier))
-                    .filter(task -> task.getDate()<weekEnd && task.getDate()>weekStart)
-                    .collect(Collectors.toList());
-            return allTasks;
+            return weekTasks.createTaskToAllWeek(newTask);
         } else {
             return Collections.singletonList(newTask);
         }

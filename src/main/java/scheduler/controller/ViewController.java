@@ -107,7 +107,7 @@ public class ViewController {
     }
 
     @PostMapping("/addTemplateView")
-    public String getAddTemlateView () {
+    public String getAddTemplateView() {
         return "addtasktemplatewindow";
     }
 
