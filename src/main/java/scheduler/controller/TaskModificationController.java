@@ -12,8 +12,6 @@ import scheduler.repository.TaskRepository;
 import scheduler.service.WeekTasks;
 
 import java.util.*;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 @Controller
 public class TaskModificationController {
